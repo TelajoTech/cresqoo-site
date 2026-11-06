@@ -377,6 +377,14 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
 .wcell span{font-family:var(--display);font-weight:500;font-size:clamp(20px,2vw,28px);line-height:1.15;letter-spacing:-.015em}
 .wcell:hover svg{color:var(--white);transform:translateX(2px)}
 @media (max-width:640px){.wgrid{grid-template-columns:1fr}.wcell{gap:14px;padding-block:14px}.wcell svg{width:22px;height:22px}.wcell span{font-size:19px}}
+
+/* consenso cookie per Meta Pixel: compare solo se il Pixel è configurato */
+.ck{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;max-width:520px;margin-left:auto;background:rgba(35,39,32,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px 18px 16px;display:grid;gap:14px;font-size:14px;line-height:1.5;color:var(--soft)}
+.ck b{color:var(--white);font-weight:500}
+.ck-row{display:flex;gap:10px;justify-content:flex-end}
+.ck button{font:inherit;font-weight:500;border-radius:999px;padding:9px 18px;cursor:pointer;border:1px solid rgba(255,255,255,.3);background:transparent;color:var(--white)}
+.ck button.ok{background:var(--white);color:var(--ink);border-color:var(--white)}
+@media (max-width:760px){.ck{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 </style><style>
 .hero .wrap{gap:20px}
 .hero h1{max-width:11ch}
@@ -687,11 +695,23 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
   COMPANIES.forEach(function(c){track.appendChild(item(c,true))});
   if(!COMPANIES.length)document.getElementById('aziende').hidden=true;
   /* Numero WhatsApp di Cresqoo, formato internazionale senza + (da confermare) */
+
+  /* Meta Pixel: si carica solo dopo il consenso. Inserire l'ID per attivarlo */
+  var PIXEL_ID='';
+  window.cq=function(){};
+  (function(){if(!PIXEL_ID)return;var KEY='cq-consent',ck=document.getElementById('ck'),v=null;
+    try{v=localStorage.getItem(KEY)}catch(e){}
+    function load(){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init',PIXEL_ID);fbq('track','PageView');window.cq=function(ev,custom){custom?fbq('trackCustom',ev):fbq('track',ev)}}
+    function set(x){try{localStorage.setItem(KEY,x)}catch(e){}ck.hidden=true;if(x==='yes')load()}
+    if(v==='yes')load();else if(v!=='no'){ck.hidden=false}
+    document.getElementById('ck-ok').addEventListener('click',function(){set('yes')});
+    document.getElementById('ck-no').addEventListener('click',function(){set('no')});})();
   var WA_NUMBER='393459831910';
   var sheet=document.getElementById('sheet'),form=document.getElementById('apply'),err=document.getElementById('f-err');
   var steps=[].slice.call(form.querySelectorAll('.step')),bars=[].slice.call(form.querySelectorAll('.progress i'));
   var back=document.getElementById('b-back'),next=document.getElementById('b-next'),cur=0,lastFocus=null;
-  function open(){lastFocus=document.activeElement;sheet.hidden=false;document.body.classList.add('lock');var f=sheet.querySelector('.step:not([hidden]) input,.done:not([hidden]) a');if(f)f.focus()}
+  var opened=false;function open(){if(!opened){opened=true;cq('ApriCandidatura',true)}lastFocus=document.activeElement;sheet.hidden=false;document.body.classList.add('lock');var f=sheet.querySelector('.step:not([hidden]) input,.done:not([hidden]) a');if(f)f.focus()}
   function close(){sheet.hidden=true;document.body.classList.remove('lock');if(lastFocus&&lastFocus.focus)lastFocus.focus()}
   [].forEach.call(document.querySelectorAll('.js-open'),function(b){b.addEventListener('click',open)});
   [].forEach.call(sheet.querySelectorAll('[data-close]'),function(b){b.addEventListener('click',close)});
@@ -726,9 +746,10 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
       'Nome: '+g('f-name')+'\n'+'Attività: '+kind+(g('f-job')?' \u2013 '+g('f-job'):'')+'\n'+'Città: '+g('f-city')+'\n'+'WhatsApp: '+g('f-phone')+'\n\n'+
       'Ho letto l\u2019informativa privacy e acconsento al trattamento dei dati.';
     document.getElementById('wa').href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);
-    form.hidden=true;document.getElementById('done').hidden=false;
+    form.hidden=true;document.getElementById('done').hidden=false;cq('Lead');
   });
   back.addEventListener('click',function(){show(Math.max(0,cur-1))});
+  document.getElementById('wa').addEventListener('click',function(){cq('Contact')});
 
   /* animazioni: solo per elementi sotto la piega al caricamento; senza JS tutto resta visibile */
   (function(){
@@ -770,5 +791,6 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
     window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(run)}},{passive:true});run();})();
 </script>
 
+<div class="ck" id="ck" hidden role="dialog" aria-label="Cookie"><div><b>Cookie di misurazione.</b> Usiamo il Pixel di Meta per capire quante persone arrivano dalle inserzioni e si candidano. Lo attiviamo solo se accetti.</div><div class="ck-row"><button type="button" id="ck-no">Rifiuta</button><button type="button" class="ok" id="ck-ok">Accetta</button></div></div>
 </body>
 </html>
