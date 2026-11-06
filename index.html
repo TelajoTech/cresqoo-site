@@ -79,7 +79,8 @@ mark{background:rgba(255,255,255,.16);color:inherit;padding:1px 6px;border-radiu
 header{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:20;background:transparent;border-bottom:1px solid transparent;transition:background .35s,border-color .35s,transform .45s cubic-bezier(.2,.7,.2,1),backdrop-filter .35s}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px;transition:padding .35s}
 header.solid{background:rgba(35,39,32,.72);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-bottom-color:rgba(255,255,255,.08)}
-header.solid .wrap{padding-block:12px}
+header.solid .wrap{padding-block:17px}
+@media (max-width:640px){header .wrap{padding-block:24px}header.solid .wrap{padding-block:19px}}
 header.away{transform:translateY(calc(-100% - env(safe-area-inset-top,0px)))}
 header .btn.js-open{white-space:nowrap;overflow:hidden;max-width:0;padding-left:0;padding-right:0;margin-left:-14px;border-width:0;opacity:0;pointer-events:none;transition:max-width .4s cubic-bezier(.2,.7,.2,1),padding .4s cubic-bezier(.2,.7,.2,1),margin .4s,opacity .25s}
 header.cta .btn.js-open{max-width:160px;padding-left:18px;padding-right:18px;margin-left:0;border-width:1px;opacity:1;pointer-events:auto}
