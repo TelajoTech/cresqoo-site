@@ -29,7 +29,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Sans:wght@500&display=swap">
 <style>
 @font-face{font-family:"Clash Display";src:url(assets/clash-display-400.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Clash Display";src:url(assets/clash-display-500.woff2) format("woff2");font-weight:500;font-display:swap}
@@ -200,7 +200,12 @@ details>div{padding-bottom:20px;color:var(--soft);max-width:62ch}
 @media (max-width:640px){.closing .wrap{grid-template-columns:1fr}.closing-c{font-size:130px}}
 
 footer{background:var(--ink);border-top:1px solid var(--faint);padding-block:28px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:14px;color:var(--soft)}
+footer .wrap{display:grid;gap:28px;font-size:14px;color:var(--soft)}
+.foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 24px}
+.foot-logo{font-family:var(--display);font-weight:700;font-size:18px;color:var(--white);margin-right:10px}
+.with{justify-self:start;display:inline-flex;align-items:center;gap:9px;padding-top:24px;border-top:1px solid var(--faint);width:100%;font-family:"Instrument Sans",Inter,sans-serif;font-weight:500;font-size:15px;letter-spacing:-.01em;color:var(--soft);transition:color .25s}
+.with img{height:26px;width:auto;display:block;opacity:.92;transition:opacity .25s}
+.with:hover{color:var(--white)}.with:hover img{opacity:1}
 footer nav{display:flex;flex-wrap:wrap;gap:8px 20px}
 footer a{text-decoration:none}
 footer a:hover{color:var(--white)}
@@ -601,8 +606,11 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
 
 <footer>
   <div class="wrap">
-    <span>cresqoo, provincia di Salerno</span>
-    <nav><a href="https://www.instagram.com/cresqoo/" target="_blank" rel="noopener">Instagram</a><a href="#privacy">Privacy</a></nav>
+    <div class="foot-top">
+      <span><b class="foot-logo">cresqoo</b> provincia di Salerno</span>
+      <nav><a href="https://www.instagram.com/cresqoo/" target="_blank" rel="noopener">Instagram</a><a href="#privacy">Privacy</a></nav>
+    </div>
+    <a class="with" href="https://withtelajo.com/" target="_blank" rel="noopener" aria-label="with Telajo, apri il sito di Telajo"><span>with</span><img src="assets/telajo.svg" alt="Telajo" width="96" height="26"></a>
   </div>
 </footer>
 
