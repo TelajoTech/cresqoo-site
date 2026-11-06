@@ -347,6 +347,22 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
 .question blockquote strong{background:linear-gradient(90deg,#fff,#fff) 0 92%/0 2px no-repeat;transition:background-size 1.2s .3s cubic-bezier(.2,.7,.2,1)}
 .question.on blockquote strong{background-size:100% 2px}
 @media (prefers-reduced-motion:reduce){.rv.pre{opacity:1;transform:none}.hero h1,.hero .kicker,.hero .hero-cta{animation:none}}
+
+/* chi partecipa: due righe di mestieri che scorrono in senso opposto, alternate a ritagli delle foto degli incontri */
+.who{padding-bottom:clamp(40px,6vw,72px)}
+.who-sub{margin-top:10px;max-width:40ch;color:var(--soft);font-size:17px;line-height:1.5}
+.wrows{margin-top:clamp(28px,4vw,48px);display:grid;gap:clamp(10px,1.6vw,18px);overflow:hidden}
+.wrow{overflow:hidden}
+.wtrack{display:flex;width:max-content;animation:wscroll 70s linear infinite}
+.r2 .wtrack{animation-direction:reverse;animation-duration:80s}
+.wg{display:flex;align-items:center;gap:clamp(14px,2vw,28px);padding-right:clamp(14px,2vw,28px)}
+.ww{font-family:var(--display);font-weight:500;font-size:clamp(36px,6.4vw,92px);line-height:1;letter-spacing:-.025em;white-space:nowrap;color:rgba(255,255,255,.34)}
+.ww.on{color:var(--white);font-weight:600}
+.wp{flex:none;display:block;height:clamp(40px,6.2vw,88px);aspect-ratio:1.9;border-radius:999px;overflow:hidden;background:var(--ink)}
+.wp img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85)}
+@keyframes wscroll{to{transform:translateX(-50%)}}
+@media (hover:hover){.wrows:hover .wtrack{animation-play-state:paused}}
+@media (prefers-reduced-motion:reduce){.wtrack{animation:none}.wrow{overflow-x:auto;scrollbar-width:none}}
 </style><style>
 .hero .wrap{gap:20px}
 .hero h1{max-width:11ch}
@@ -490,10 +506,14 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
 
 
 
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">Chi partecipa</p>
-      <p class="who-line"><strong>Commercialisti</strong>, agenti immobiliari, <strong>consulenti</strong>, ristoratori, imprese di trasporto, <strong>aziende di abbigliamento</strong>, aziende agricole, imprese edili, <strong>futuri imprenditori</strong>, studenti.</p>
+  <section class="who" aria-labelledby="who-t">
+    <div class="wrap who-head">
+      <p class="eyebrow" id="who-t">Chi partecipa</p>
+      <p class="who-sub">Imprenditori, professionisti e chi sta per aprire un'impresa.</p>
+    </div>
+    <div class="wrows">
+      <div class="wrow r1"><div class="wtrack"><div class="wg"><span class="ww on">Commercialisti</span><span class="wp"><img src="assets/2026-01_talk02_discussione.jpg" alt="" style="object-position:50% 30%" decoding="async"></span><span class="ww">Agenti immobiliari</span><span class="ww on">Consulenti</span><span class="wp"><img src="assets/2026-09-19_s02-talk01_sala.jpg" alt="" style="object-position:50% 45%" decoding="async"></span><span class="ww">Ristoratori</span><span class="ww on">Imprese di trasporto</span><span class="wp"><img src="assets/2026-06_season-finale_cena.jpg" alt="" style="object-position:50% 40%" decoding="async"></span></div><div class="wg" aria-hidden="true"><span class="ww on">Commercialisti</span><span class="wp"><img src="assets/2026-01_talk02_discussione.jpg" alt="" style="object-position:50% 30%" decoding="async"></span><span class="ww">Agenti immobiliari</span><span class="ww on">Consulenti</span><span class="wp"><img src="assets/2026-09-19_s02-talk01_sala.jpg" alt="" style="object-position:50% 45%" decoding="async"></span><span class="ww">Ristoratori</span><span class="ww on">Imprese di trasporto</span><span class="wp"><img src="assets/2026-06_season-finale_cena.jpg" alt="" style="object-position:50% 40%" decoding="async"></span></div></div></div>
+      <div class="wrow r2"><div class="wtrack"><div class="wg"><span class="ww">Aziende di abbigliamento</span><span class="wp"><img src="assets/2026-05-23_after-hours_marina-arechi.jpg" alt="" style="object-position:50% 55%" decoding="async"></span><span class="ww on">Futuri imprenditori</span><span class="ww">Aziende agricole</span><span class="wp"><img src="assets/2026-01_talk02_tavolo.jpg" alt="" style="object-position:40% 40%" decoding="async"></span><span class="ww on">Studenti</span><span class="ww">Imprese edili</span><span class="wp"><img src="assets/2026-09-19_s02-talk01_sala.jpg" alt="" style="object-position:20% 60%" decoding="async"></span></div><div class="wg" aria-hidden="true"><span class="ww">Aziende di abbigliamento</span><span class="wp"><img src="assets/2026-05-23_after-hours_marina-arechi.jpg" alt="" style="object-position:50% 55%" decoding="async"></span><span class="ww on">Futuri imprenditori</span><span class="ww">Aziende agricole</span><span class="wp"><img src="assets/2026-01_talk02_tavolo.jpg" alt="" style="object-position:40% 40%" decoding="async"></span><span class="ww on">Studenti</span><span class="ww">Imprese edili</span><span class="wp"><img src="assets/2026-09-19_s02-talk01_sala.jpg" alt="" style="object-position:20% 60%" decoding="async"></span></div></div></div>
     </div>
   </section>
 
@@ -699,7 +719,7 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
   /* animazioni: solo per elementi sotto la piega al caricamento; senza JS tutto resta visibile */
   (function(){
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var sel='.question .wrap > *, .vtitle, .voice, .vbox, .numpair, .who-line, .trip figure, .faq-grid > *, .closing .wrap > *, .logos-label';
+    var sel='.question .wrap > *, .vtitle, .voice, .vbox, .numpair, .who-head > *, .wrows, .trip figure, .faq-grid > *, .closing .wrap > *, .logos-label';
     var els=[].slice.call(document.querySelectorAll(sel));
     function count(el){var n=+el.getAttribute('data-count'),t0=null;if(reduce){return}
       function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1100);el.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
