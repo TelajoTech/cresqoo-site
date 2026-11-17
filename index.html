@@ -705,6 +705,11 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
   COMPANIES.forEach(function(c){track.appendChild(item(c,false))});
   COMPANIES.forEach(function(c){track.appendChild(item(c,true))});
   if(!COMPANIES.length)document.getElementById('aziende').hidden=true;
+  /* il loop parte a metà giro: la fascia è già piena e Mi Trade entra da destra poco dopo */
+  (function(){var done=false;function go(){if(done)return;done=true;
+    var g=parseFloat(getComputedStyle(track).columnGap)||0,w=track.parentNode.clientWidth,d=track.offsetWidth/2+g/2;
+    var p=d?Math.min(.95,Math.max(.05,1-(w+40)/d)):0;track.style.animationDelay=(-p*28).toFixed(2)+'s'}
+    if(document.readyState==='complete')go();else{window.addEventListener('load',go);setTimeout(go,3000)}})();
   /* Numero WhatsApp di Cresqoo, formato internazionale senza + (da confermare) */
 
   /* Meta Pixel: si carica solo dopo il consenso. Inserire l'ID per attivarlo */
