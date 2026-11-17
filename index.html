@@ -788,7 +788,7 @@ section.gallery .wrap{max-width:1120px;padding-left:max(20px,env(safe-area-inset
   window.addEventListener('scroll',upd,{passive:true});upd();
   var vid=document.getElementById('reel'),snd=document.getElementById('sound'),lab=document.getElementById('sound-label');
   snd.addEventListener('click',function(){
-    vid.muted=!vid.muted;if(!vid.muted){vid.currentTime=0;var p=vid.play();if(p&&p.catch)p.catch(function(){})}
+    vid.muted=!vid.muted;if(!vid.muted){var p=vid.play();if(p&&p.catch)p.catch(function(){})}
     snd.setAttribute('aria-pressed',String(!vid.muted));lab.textContent=vid.muted?"Attiva l'audio":'Disattiva audio';
   });
 })();
